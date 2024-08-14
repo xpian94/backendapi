@@ -11,7 +11,7 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-public class TodoControllerTest extends BaseTest {
+public class TodoControllerTest extends IntegrationTestBaseWithoutDataSource {
     @Autowired
     private MockMvc mockMvc;
 

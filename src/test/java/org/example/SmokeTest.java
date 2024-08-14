@@ -7,7 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = HomeController.class)
-public class SmokeTest extends BaseTest {
+public class SmokeTest extends IntegrationTestBaseWithoutDataSource {
     @Autowired
     private HomeController controller;
 

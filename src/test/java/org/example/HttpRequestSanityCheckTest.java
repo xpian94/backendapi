@@ -8,7 +8,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class HttpRequestSanityCheckTest extends BaseTest {
+public class HttpRequestSanityCheckTest extends IntegrationTestBaseWithoutDataSource {
     @Autowired
     private TestRestTemplate restTemplate;
 
