@@ -9,6 +9,6 @@ public class TodoService {
     private TodoRepository repo;
 
     void create() {
-        repo.save(new Object());
+        repo.save(new TodoEntity());
     }
 }

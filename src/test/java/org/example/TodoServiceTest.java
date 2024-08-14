@@ -21,7 +21,7 @@ public class TodoServiceTest {
 
     @Test
     void canCreate() {
-        when(repo.save(any())).thenReturn(new Object());
+        when(repo.save(any())).thenReturn(new TodoEntity());
 
         service.create();
 
