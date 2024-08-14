@@ -8,7 +8,13 @@ public class TodoService {
     @Autowired
     private TodoRepository repo;
 
-    void create() {
-        repo.save(new Object());
+    TodoResponse create(TodoRequest todoRequest) {
+        var entity = new TodoEntity();
+        var saved = repo.save(entity);
+
+        var response = new TodoResponse();
+        response.setId(Long.toString(saved.getId()));
+
+        return response;
     }
 }

@@ -14,7 +14,7 @@ public class TodoController {
     @RequestMapping(value = "/todo", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     String create() {
-        service.create();
+        service.create(new TodoRequest());
         return "";
     }
 }
