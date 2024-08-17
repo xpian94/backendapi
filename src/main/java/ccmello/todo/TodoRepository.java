@@ -1,4 +1,4 @@
-package xpian94.todo;
+package ccmello.todo;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

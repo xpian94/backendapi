@@ -1,12 +1,14 @@
-package xpian94.todo;
+package ccmello.todo;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TodoService {
-    @Autowired
-    private TodoRepository repo;
+    private final TodoRepository repo;
+
+    public TodoService(TodoRepository repo) {
+        this.repo = repo;
+    }
 
     TodoResponse create(TodoRequest todoRequest) {
         var entity = TodoEntity.builder()

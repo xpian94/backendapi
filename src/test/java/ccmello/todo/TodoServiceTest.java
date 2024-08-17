@@ -1,10 +1,10 @@
-package xpian94.todo;
+package ccmello.todo;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -17,8 +17,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
-public class TodoServiceTest {
-    @InjectMocks
+class TodoServiceTest {
     private TodoService service;
 
     @MockBean
@@ -26,6 +25,11 @@ public class TodoServiceTest {
 
     @Captor
     private ArgumentCaptor<TodoEntity> entityArgumentCaptor;
+
+    @BeforeEach
+    void setup() {
+        service = new TodoService(repo);
+    }
 
     private void createAndAssert(UUID expectedId, TodoRequest request) {
         var entity = TodoEntity.builder()
@@ -72,7 +76,7 @@ public class TodoServiceTest {
 
         var response = service.requestAll();
 
-        assertThat(response.getTodos().size()).isZero();
+        assertThat(response.getTodos()).isEmpty();
         verify(repo).findAll();
 
         var entity = TodoEntity.builder()

@@ -1,14 +1,14 @@
-package xpian94;
+package ccmello;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import xpian94.home.HomeController;
+import ccmello.home.HomeController;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = HomeController.class)
-public class SmokeTest extends IntegrationTestBaseWithoutDataSource {
+class SmokeTest extends IntegrationTestBaseWithoutDataSource {
     @Autowired
     private HomeController controller;
 

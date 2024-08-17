@@ -1,4 +1,4 @@
-package xpian94.todo;
+package ccmello.todo;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,13 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
-import xpian94.IntegrationTestBase;
+import ccmello.IntegrationTestBase;
 
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TodoIntegrationTest extends IntegrationTestBase {
+class TodoIntegrationTest extends IntegrationTestBase {
     @Autowired
     private TestRestTemplate restTemplate;
 

@@ -1,18 +1,20 @@
-package xpian94.todo;
+package ccmello.todo;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class TodoController {
-    @Autowired
-    private TodoService service;
+    private final TodoService service;
+
+    public TodoController(TodoService service) {
+        this.service = service;
+    }
 
     @RequestMapping(value = "/todo")
     ResponseEntity<TodoResponse> create(@RequestBody TodoRequest request) {
@@ -23,7 +25,7 @@ public class TodoController {
             .body(response);
     }
 
-    @RequestMapping(value = "/todo", method = RequestMethod.GET)
+    @GetMapping(value = "/todo")
     ResponseEntity<TodoResponseAll> all() {
         var response = service.requestAll();
 

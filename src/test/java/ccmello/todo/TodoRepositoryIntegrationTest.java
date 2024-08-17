@@ -1,4 +1,4 @@
-package xpian94.todo;
+package ccmello.todo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-public class TodoRepositoryIntegrationTest {
+class TodoRepositoryIntegrationTest {
     @Autowired
     private TodoRepository repo;
 
