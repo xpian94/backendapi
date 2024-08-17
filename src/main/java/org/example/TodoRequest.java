@@ -1,13 +1,10 @@
 package org.example;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class TodoRequest {
     private String title;
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getTitle() {
-        return title;
-    }
 }
