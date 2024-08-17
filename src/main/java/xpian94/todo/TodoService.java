@@ -8,8 +8,6 @@ public class TodoService {
     @Autowired
     private TodoRepository repo;
 
-    private static int counter = 0;
-
     TodoResponse create(TodoRequest todoRequest) {
         var entity = TodoEntity.builder()
             .title(todoRequest.getTitle())
@@ -17,19 +15,23 @@ public class TodoService {
 
         var saved = repo.save(entity);
 
-        var response = new TodoResponse();
-        response.setId(String.valueOf(saved.getUuid()));
-
-        counter++;
-
-        return response;
+        return TodoResponse.builder()
+            .id(String.valueOf(saved.getUuid()))
+            .build();
     }
 
     public TodoResponseAll requestAll() {
         var response = new TodoResponseAll();
 
         repo.findAll()
-            .forEach(todoEntity -> response.getTodos().add(new TodoResponse()));
+            .forEach(todoEntity -> {
+                var todoResponse = TodoResponse.builder()
+                    .id(todoEntity.getUuid().toString())
+                    .title(todoEntity.getTitle())
+                    .build();
+
+                response.getTodos().add(todoResponse);
+            });
 
         return response;
     }
