@@ -1,4 +1,4 @@
-package org.example;
+package xpian94.todo;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;

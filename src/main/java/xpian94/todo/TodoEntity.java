@@ -1,4 +1,4 @@
-package org.example;
+package xpian94.todo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

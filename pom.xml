@@ -11,7 +11,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>org.example</groupId>
+    <groupId>xpian94.todo</groupId>
     <artifactId>backendapi</artifactId>
     <version>1.0-SNAPSHOT</version>
 

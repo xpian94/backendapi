@@ -1,4 +1,4 @@
-package org.example;
+package xpian94.todo;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

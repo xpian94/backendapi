@@ -1,4 +1,4 @@
-package org.example;
+package xpian94.todo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

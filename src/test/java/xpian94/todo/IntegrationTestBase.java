@@ -1,4 +1,4 @@
-package org.example;
+package xpian94.todo;
 
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
