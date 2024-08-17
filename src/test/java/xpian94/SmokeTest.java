@@ -1,4 +1,4 @@
-package xpian94.todo;
+package xpian94;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
