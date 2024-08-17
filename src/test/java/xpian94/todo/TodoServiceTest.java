@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,6 +26,25 @@ public class TodoServiceTest {
 
     @Captor
     private ArgumentCaptor<TodoEntity> entityArgumentCaptor;
+
+    private void createAndAssert(UUID expectedId, TodoRequest request) {
+        var entity = TodoEntity.builder()
+            .title(request.getTitle())
+            .uuid(expectedId)
+            .build();
+
+        when(repo.save(any())).thenReturn(entity);
+
+        var response = service.create(request);
+
+        verify(repo).save(entityArgumentCaptor.capture());
+
+        var actual = entityArgumentCaptor.getValue();
+
+        assertThat(response.getId()).isEqualTo(expectedId.toString());
+        assertThat(response.getTitle()).isNull();
+        assertThat(actual.getTitle()).isEqualTo(request.getTitle());
+    }
 
     @Test
     void canCreate() {
@@ -46,21 +66,33 @@ public class TodoServiceTest {
         createAndAssert(uuid, request);
     }
 
-    private void createAndAssert(UUID expectedId, TodoRequest request) {
+    @Test
+    void canListAll() {
+        when(repo.findAll()).thenReturn(List.of());
+
+        var response = service.requestAll();
+
+        assertThat(response.getTodos().size()).isZero();
+        verify(repo).findAll();
+
         var entity = TodoEntity.builder()
-            .title(request.getTitle())
-            .uuid(expectedId)
+            .uuid(UUID.randomUUID())
+            .title("A title")
             .build();
 
-        when(repo.save(any())).thenReturn(entity);
+        when(repo.findAll()).thenReturn(List.of(entity));
 
-        var response = service.create(request);
+        response = service.requestAll();
 
-        verify(repo).save(entityArgumentCaptor.capture());
+        var todos = response.getTodos();
 
-        var actual = entityArgumentCaptor.getValue();
+        assertThat(todos.size()).isOne();
 
-        assertThat(response.getId()).isEqualTo(expectedId.toString());
-        assertThat(actual.getTitle()).isEqualTo(request.getTitle());
+        var first = todos.getFirst();
+
+        assertThat(first).isInstanceOf(TodoResponse.class);
+
+        assertThat(first.getId()).isEqualTo(entity.getUuid().toString());
+        assertThat(first.getTitle()).isEqualTo(entity.getTitle());
     }
 }

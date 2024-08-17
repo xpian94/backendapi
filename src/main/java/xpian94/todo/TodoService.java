@@ -15,8 +15,23 @@ public class TodoService {
 
         var saved = repo.save(entity);
 
-        var response = new TodoResponse();
-        response.setId(String.valueOf(saved.getUuid()));
+        return TodoResponse.builder()
+            .id(String.valueOf(saved.getUuid()))
+            .build();
+    }
+
+    public TodoResponseAll requestAll() {
+        var response = new TodoResponseAll();
+
+        repo.findAll()
+            .forEach(todoEntity -> {
+                var todoResponse = TodoResponse.builder()
+                    .id(todoEntity.getUuid().toString())
+                    .title(todoEntity.getTitle())
+                    .build();
+
+                response.getTodos().add(todoResponse);
+            });
 
         return response;
     }
