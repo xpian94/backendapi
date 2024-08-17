@@ -1,4 +1,4 @@
-package xpian94;
+package xpian94.todo;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,8 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEnti
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
-import xpian94.todo.IntegrationTestBase;
-import xpian94.todo.TodoEntity;
+import xpian94.IntegrationTestBase;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
