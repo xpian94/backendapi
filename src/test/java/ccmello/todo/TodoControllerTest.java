@@ -1,5 +1,6 @@
 package ccmello.todo;
 
+import ccmello.IntegrationTestBaseWithoutDataSource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -8,11 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import ccmello.IntegrationTestBaseWithoutDataSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
@@ -29,20 +29,8 @@ class TodoControllerTest extends IntegrationTestBaseWithoutDataSource {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    void shouldCreate() throws Exception {
-        var expected = TodoRequest.builder().build();
-
-        postTodoAndAssertServiceCall(expected);
-
-        reset(service);
-
-        expected = TodoRequest.builder().build();
-
-        postTodoAndAssertServiceCall(expected);
-    }
-
-    private void postTodoAndAssertServiceCall(TodoRequest expected) throws Exception {
-        var requestAsString = objectMapper.writeValueAsString(expected);
+    void shouldCallCreate() throws Exception {
+        var requestAsString = objectMapper.writeValueAsString("{}");
 
         mockMvc.perform(post("/todo")
             .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -54,5 +42,14 @@ class TodoControllerTest extends IntegrationTestBaseWithoutDataSource {
         var actual = requestArgumentCaptor.getValue();
 
         assertThat(actual).isNotNull();
+    }
+
+    @Test
+    void shouldCallRequestAll() throws Exception {
+        mockMvc.perform(get("/todo")
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+        ).andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE));
+
+        verify(service).requestAll();
     }
 }
