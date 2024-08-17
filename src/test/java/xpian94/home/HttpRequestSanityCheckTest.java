@@ -1,20 +1,20 @@
-package org.example;
+package xpian94.home;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import xpian94.IntegrationTestBaseWithoutDataSource;
+import xpian94.todo.TodoService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class HttpRequestSanityCheckTest {
+public class HttpRequestSanityCheckTest extends IntegrationTestBaseWithoutDataSource {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    @LocalServerPort
-    private int port;
+    @MockBean
+    private TodoService service;
 
     @Test
     void shouldReturnDefaultMessage() {
