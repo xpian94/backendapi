@@ -16,7 +16,7 @@ public class TodoService {
         var saved = repo.save(entity);
 
         var response = new TodoResponse();
-        response.setId(Long.toString(saved.getId()));
+        response.setId(String.valueOf(saved.getUuid()));
 
         return response;
     }

@@ -11,6 +11,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import xpian94.IntegrationTestBase;
 
+import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
@@ -22,10 +24,10 @@ public class TodoIntegrationTest extends IntegrationTestBase {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
-    private TestEntityManager entityManager;
+    private TestEntityManager testEntityManager;
 
     @Test
-    void givenRequestBody_whenPost_thenSuccess() throws JsonProcessingException {
+    void givenRequestBody_whenCreate_thenSuccess() throws JsonProcessingException {
         var headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -44,10 +46,17 @@ public class TodoIntegrationTest extends IntegrationTestBase {
 
         var root = objectMapper.readTree(response.getBody());
         var idNodePath = root.path("id");
-        var id = idNodePath.asLong();
+        var id = idNodePath.asText();
 
         assertThat(root).isNotNull();
         assertThat(idNodePath).isNotNull();
-        assertThat(entityManager.find(TodoEntity.class, id)).isNotNull();
+
+        var entityManager = testEntityManager.getEntityManager();
+
+        var entity = (TodoEntity) entityManager
+            .createQuery("SELECT t FROM todo t WHERE t.uuid = :uuid")
+            .setParameter("uuid", UUID.fromString(id)).getSingleResult();
+
+        assertThat(entity).isNotNull();
     }
 }

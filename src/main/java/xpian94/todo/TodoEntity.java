@@ -1,12 +1,14 @@
 package xpian94.todo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Entity
+import java.util.UUID;
+
+@Entity(name = "todo")
 @Getter
 @Builder
 @AllArgsConstructor
@@ -16,5 +18,12 @@ public class TodoEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private UUID uuid;
+
     private String title;
+
+    @PrePersist
+    protected void onCreate() {
+        uuid = java.util.UUID.randomUUID();
+    }
 }

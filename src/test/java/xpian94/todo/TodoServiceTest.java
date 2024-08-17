@@ -9,6 +9,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -30,20 +32,24 @@ public class TodoServiceTest {
             .title("A title")
             .build();
 
-        createAndAssert("99", request);
+        var uuid = UUID.randomUUID();
+
+        createAndAssert(uuid, request);
         reset(repo);
 
         request = TodoRequest.builder()
             .title("Another title")
             .build();
 
-        createAndAssert("100", request);
+        uuid = UUID.randomUUID();
+
+        createAndAssert(uuid, request);
     }
 
-    private void createAndAssert(String expectedId, TodoRequest request) {
+    private void createAndAssert(UUID expectedId, TodoRequest request) {
         var entity = TodoEntity.builder()
             .title(request.getTitle())
-            .id(Long.valueOf(expectedId))
+            .uuid(expectedId)
             .build();
 
         when(repo.save(any())).thenReturn(entity);
@@ -54,7 +60,7 @@ public class TodoServiceTest {
 
         var actual = entityArgumentCaptor.getValue();
 
-        assertThat(response.getId()).isEqualTo(expectedId);
+        assertThat(response.getId()).isEqualTo(expectedId.toString());
         assertThat(actual.getTitle()).isEqualTo(request.getTitle());
     }
 }
