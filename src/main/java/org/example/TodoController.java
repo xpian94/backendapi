@@ -5,18 +5,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class TodoController {
     @Autowired
     private TodoService service;
 
-    @RequestMapping(value = "/todo", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    ResponseEntity<TodoResponse> create() {
-        var response = service.create(new TodoRequest());
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    @RequestMapping(value = "/todo")
+    ResponseEntity<TodoResponse> create(@RequestBody TodoRequest request) {
+        var response = service.create(request);
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(response);
     }
 }
