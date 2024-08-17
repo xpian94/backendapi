@@ -26,22 +26,25 @@ public class TodoServiceTest {
 
     @Test
     void canCreate() {
-        var request = new TodoRequest();
-        request.setTitle("A title");
+        var request = TodoRequest.builder()
+            .title("A title")
+            .build();
 
         createAndAssert("99", request);
         reset(repo);
 
-        request = new TodoRequest();
-        request.setTitle("Another title");
+        request = TodoRequest.builder()
+            .title("Another title")
+            .build();
 
         createAndAssert("100", request);
     }
 
     private void createAndAssert(String expectedId, TodoRequest request) {
-        var entity = new TodoEntity();
-        entity.setTitle(request.getTitle());
-        entity.setId(Long.valueOf(expectedId));
+        var entity = TodoEntity.builder()
+            .title(request.getTitle())
+            .id(Long.valueOf(expectedId))
+            .build();
 
         when(repo.save(any())).thenReturn(entity);
 

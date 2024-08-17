@@ -9,8 +9,9 @@ public class TodoService {
     private TodoRepository repo;
 
     TodoResponse create(TodoRequest todoRequest) {
-        var entity = new TodoEntity();
-        entity.setTitle(todoRequest.getTitle());
+        var entity = TodoEntity.builder()
+            .title(todoRequest.getTitle())
+            .build();
 
         var saved = repo.save(entity);
 

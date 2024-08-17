@@ -1,10 +1,11 @@
 package org.example;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
-@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class TodoRequest {
     private String title;
 }
