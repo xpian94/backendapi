@@ -29,17 +29,13 @@ public class TodoControllerTest extends IntegrationTestBaseWithoutDataSource {
 
     @Test
     void shouldCreate() throws Exception {
-        var expected = TodoRequest.builder()
-            .title("A title")
-            .build();
+        var expected = TodoRequest.builder().build();
 
         postTodoAndAssertServiceCall(expected);
 
         reset(service);
 
-        expected = TodoRequest.builder()
-            .title("Another title")
-            .build();
+        expected = TodoRequest.builder().build();
 
         postTodoAndAssertServiceCall(expected);
     }
