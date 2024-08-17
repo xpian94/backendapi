@@ -42,6 +42,7 @@ public class TodoServiceTest {
         var actual = entityArgumentCaptor.getValue();
 
         assertThat(response.getId()).isEqualTo(expectedId.toString());
+        assertThat(response.getTitle()).isNull();
         assertThat(actual.getTitle()).isEqualTo(request.getTitle());
     }
 
