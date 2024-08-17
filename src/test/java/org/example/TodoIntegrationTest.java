@@ -7,22 +7,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 @AutoConfigureTestEntityManager
-public class TodoIntegrationTest {
+public class TodoIntegrationTest extends IntegrationTestBase {
     @Autowired
     private TestRestTemplate restTemplate;
-
-    @LocalServerPort
-    private int port;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
